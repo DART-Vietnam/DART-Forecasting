@@ -1,0 +1,1 @@
+[![Docker](https://github.com/DART-Vietnam/dart-forecasting/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/DART-Vietnam/dart-forecasting/actions/workflows/docker-publish.yml)
