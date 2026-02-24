@@ -9,4 +9,5 @@ repositories = [
 
 dependencies = [
     "targets",
+    "argparse",
 ]

@@ -20,6 +20,17 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "argparse"
+version = "2.3.1"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "findpython",
+    "jsonlite",
+    "R6",
+]
+
+[[packages]]
 name = "backports"
 version = "1.5.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -81,6 +92,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "findpython"
+version = "1.0.9"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "glue"
 version = "1.8.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -111,6 +129,13 @@ dependencies = [
     "vctrs",
     { name = "cpp11", requirement = "(>= 0.5.0)" },
 ]
+
+[[packages]]
+name = "jsonlite"
+version = "2.0.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
 
 [[packages]]
 name = "knitr"
