@@ -14,8 +14,6 @@ ENV PATH="/root/.local/bin:${PATH}"
 
 # set work dir
 WORKDIR /dart-forecasting
-
-# load `rv`
 COPY . .
 
 # install sysdeps for R packages
