@@ -3,14 +3,23 @@ name = "dart-forecasting"
 r_version = "4.5"
 
 repositories = [
-    { alias = "mlrorg", url = "https://mlr-org.r-universe.dev/" },
-    { alias = "CRAN", url = "https://packagemanager.posit.co/cran/latest" },
+  { alias = "mlrorg", url = "https://mlr-org.r-universe.dev/" },
+  { alias = "CRAN", url = "https://packagemanager.posit.co/cran/latest" },
 ]
 
 dependencies = [
-    "targets",
-    "autometric",
-    "crew",
-    "tidyverse",
-    "qs2",
+  "targets",
+  "autometric",
+  "crew",
+  "tidyverse",
+  "qs2",
+  # tar_watch() deps
+  "DT",
+  "gt",
+  "markdown",
+  "shiny",
+  "shinybusy",
+  "shinyWidgets",
+  "visNetwork",
+  "parallelly",
 ]
