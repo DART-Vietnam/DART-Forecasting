@@ -12,9 +12,9 @@ library(targets)
 }
 
 ## fpath for new incidence data
-.new_incidence_fpath <- Sys.getenv("NEW_INC_FPATH")
-if (.new_incidence_fpath == "") {
-  stop("`NEW_INC_FPATH` env var must be supplied")
+.incidence_fpath <- Sys.getenv("INCIDENCE_FPATH")
+if (.incidence_fpath == "") {
+  stop("`INCIDENCE_FPATH` env var must be supplied")
 }
 
 log_dir <- "_targets/logs/"
@@ -46,5 +46,7 @@ if (tar_active()) {
 }
 
 list(
-  tar_target(new_incidence_data, read_new_dat(.new_incidence_fpath))
+  #
+  # Load incidence data
+  tar_target(incidence_data, read_new_dat(.incidence_fpath))
 )
