@@ -12,4 +12,5 @@ dependencies = [
     "autometric",
     "crew",
     "tidyverse",
+    "qs2",
 ]

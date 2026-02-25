@@ -41,6 +41,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "RcppParallel"
+version = "5.1.11-1"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "S7"
 version = "0.2.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -826,6 +833,17 @@ dependencies = [
 ]
 
 [[packages]]
+name = "qs2"
+version = "0.1.7"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "Rcpp",
+    { name = "stringfish", requirement = "(>= 0.18.0)" },
+    "RcppParallel",
+]
+
+[[packages]]
 name = "ragg"
 version = "1.5.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1004,6 +1022,16 @@ force_source = false
 dependencies = [
     "stringr",
     "R6",
+]
+
+[[packages]]
+name = "stringfish"
+version = "0.18.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "Rcpp",
+    "RcppParallel",
 ]
 
 [[packages]]
