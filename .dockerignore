@@ -1,5 +1,8 @@
-rv/library
 .git
-Dockerfile
-.dockerignore
+.github
 data
+rv/library
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile
