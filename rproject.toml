@@ -25,4 +25,5 @@ dependencies = [
   ## ----------------
   "toml",
   "stars",
+  "ncmeta",
 ]
