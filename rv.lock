@@ -1455,6 +1455,16 @@ dependencies = [
 ]
 
 [[packages]]
+name = "toml"
+version = "1.0.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "jsonlite",
+    { name = "V8", requirement = "(>= 8.0.0)" },
+]
+
+[[packages]]
 name = "tzdb"
 version = "0.5.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }

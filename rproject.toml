@@ -13,7 +13,7 @@ dependencies = [
   "crew",
   "tidyverse",
   "qs2",
-  # tar_watch() deps
+  ## tar_watch() deps
   "DT",
   "gt",
   "markdown",
@@ -22,4 +22,6 @@ dependencies = [
   "shinyWidgets",
   "visNetwork",
   "parallelly",
+  ## ----------------
+  "toml",
 ]

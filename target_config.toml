@@ -1,0 +1,3 @@
+[data.paths]
+incidence = "data/incidence/incidence_2000_2026.csv"
+weather = "data/weather/*.nc"

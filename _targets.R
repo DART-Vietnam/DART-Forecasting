@@ -1,6 +1,7 @@
 library(autometric)
 library(crew)
 library(targets)
+library(toml)
 
 # load envs (from docker compose file)
 ## crew workers for branch parallelisation
@@ -11,10 +12,10 @@ library(targets)
   .env_crew_workers
 }
 
-## fpath for new incidence data
-.incidence_fpath <- Sys.getenv("INCIDENCE_FPATH")
-if (.incidence_fpath == "") {
-  stop("`INCIDENCE_FPATH` env var must be supplied")
+## load TOML container run-time configs
+.toml_fpath <- Sys.getenv("TOML_CONF_FPATH")
+if (.toml_fpath == "") {
+  stop("`TOML_CONF_FPATH` env var must be supplied")
 }
 
 log_dir <- "_targets/logs/"
@@ -47,6 +48,13 @@ if (tar_active()) {
 
 list(
   #
+  # Load run-time config
+  tar_target(toml_conf, read_toml(.toml_fpath)),
+  #
   # Load incidence data
-  tar_target(incidence_data, read_new_dat(.incidence_fpath))
+  tar_target(
+    incidence_data,
+    read_incidence_data(toml_conf$data$paths$incidence)
+  ),
+  tar_target(weather_data, read_weather_data(toml_conf$data$paths$weather))
 )
