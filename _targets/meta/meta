@@ -1,0 +1,11 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+new_incidence_data|stem|2fb9c8bf4941e9e3|12dc7772f3be9af0|b996c5d65cdcd4ed|980080897||t20509.2187130588s|s5495b|5495|qs|local|vector|||0.406||
+.new_incidence_fpath|object|49139b7d97f449f9
+.rv|object|cc49f54a6d7d9a84
+.local_crew_controller|object|9114dc27fca99c3d
+.env_crew_workers|object|ff92ab37db790363
+.incidence_fpath|object|aa7bd08548818dbc
+log_dir|object|126bf01082cab03c
+read_new_dat|function|b3fd49ecad5a3019
+.crew_workers|object|50003b5d5254d75e
+incidence_data|stem|6cef4940e33f6cbc|82076b72b509d7a8|661fc8d645d5c5de|-136620616||t20509.4028341176s|s26000b|26000|qs|local|vector|||0.388||
