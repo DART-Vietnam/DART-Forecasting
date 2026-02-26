@@ -24,4 +24,5 @@ dependencies = [
   "parallelly",
   ## ----------------
   "toml",
+  "stars",
 ]

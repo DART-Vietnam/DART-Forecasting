@@ -26,6 +26,20 @@ dependencies = [
 ]
 
 [[packages]]
+name = "KernSmooth"
+version = "2.23-26"
+source = { builtin = true }
+force_source = false
+dependencies = []
+
+[[packages]]
+name = "MASS"
+version = "7.3-65"
+source = { builtin = true }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "Matrix"
 version = "1.7-4"
 source = { builtin = true }
@@ -79,6 +93,13 @@ dependencies = [
     { name = "jsonlite", requirement = "(>= 1.0)" },
     { name = "curl", requirement = "(>= 1.0)" },
 ]
+
+[[packages]]
+name = "abind"
+version = "1.4-8"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
 
 [[packages]]
 name = "askpass"
@@ -225,6 +246,26 @@ force_source = false
 dependencies = [
     "rematch",
     "tibble",
+]
+
+[[packages]]
+name = "class"
+version = "7.3-23"
+source = { builtin = true }
+force_source = false
+dependencies = [
+    "MASS",
+]
+
+[[packages]]
+name = "classInt"
+version = "0.4-11"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "e1071",
+    "class",
+    "KernSmooth",
 ]
 
 [[packages]]
@@ -399,6 +440,16 @@ dependencies = [
     "tibble",
     { name = "tidyselect", requirement = "(>= 1.2.0)" },
     { name = "vctrs", requirement = "(>= 0.4.1)" },
+]
+
+[[packages]]
+name = "e1071"
+version = "1.7-17"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "class",
+    "proxy",
 ]
 
 [[packages]]
@@ -968,6 +1019,13 @@ dependencies = [
 ]
 
 [[packages]]
+name = "proxy"
+version = "0.4-29"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "ps"
 version = "1.9.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1155,6 +1213,16 @@ dependencies = [
 ]
 
 [[packages]]
+name = "s2"
+version = "1.1.9"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "Rcpp",
+    { name = "wk", requirement = "(>= 0.6.0)" },
+]
+
+[[packages]]
 name = "sass"
 version = "0.4.10"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1199,6 +1267,20 @@ force_source = false
 dependencies = [
     "stringr",
     "R6",
+]
+
+[[packages]]
+name = "sf"
+version = "1.1-0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "classInt", requirement = "(>= 0.4-1)" },
+    { name = "DBI", requirement = "(>= 0.8)" },
+    "magrittr",
+    { name = "s2", requirement = "(>= 1.1.0)" },
+    { name = "units", requirement = "(>= 0.7-0)" },
+    "Rcpp",
 ]
 
 [[packages]]
@@ -1261,6 +1343,19 @@ version = "0.1.7-1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
+
+[[packages]]
+name = "stars"
+version = "0.7-1"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "abind",
+    { name = "sf", requirement = "(>= 1.0-19)" },
+    { name = "classInt", requirement = "(>= 0.4-1)" },
+    "rlang",
+    "units",
+]
 
 [[packages]]
 name = "stringfish"
@@ -1474,6 +1569,15 @@ dependencies = [
 ]
 
 [[packages]]
+name = "units"
+version = "1.0-0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "Rcpp",
+]
+
+[[packages]]
 name = "utf8"
 version = "1.2.6"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1543,6 +1647,13 @@ dependencies = [
 [[packages]]
 name = "withr"
 version = "3.0.2"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
+
+[[packages]]
+name = "wk"
+version = "0.9.5"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
