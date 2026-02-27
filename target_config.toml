@@ -1,3 +1,9 @@
 [data.paths]
 incidence = "data/incidence/incidence_2000_2026.csv"
-weather = "data/weather/*.nc"
+weather = [
+    "data/weather/VNM-1-2002-2024-era5.nc",
+    "data/weather/VNM-1-2000-2024-wrf_downscale.precip.nc",
+]
+
+[forecast]
+max_horizon = 12
