@@ -49,7 +49,12 @@ if (tar_active()) {
 list(
   #
   # Load run-time config
-  tar_target(toml_conf, read_toml(.toml_fpath)),
+  tar_target(run_conf_fpath, .toml_fpath, format = "file"),
+  tar_target(
+    run_conf,
+    read_toml(run_conf_fpath),
+    packages = c("toml")
+  ),
   #
   # Load incidence data
   tar_target(
