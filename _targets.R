@@ -32,7 +32,7 @@ log_dir <- "_targets/logs/"
 # setup targets options
 tar_source("target_fns")
 tar_option_set(
-  packages = c("tidyverse"),
+  packages = c("tidyverse", "data.table"),
   format = "qs",
   seed = 764,
   controller = .local_crew_controller
