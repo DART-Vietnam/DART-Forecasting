@@ -70,6 +70,12 @@ list(
   tar_target(
     weekly_data_list,
     build_weekly_data_list(incidence_data, weather_data)
-  )
+  ),
   #
+  # Build feature-engineered flatlist
+  tar_target(
+    tsk_feateng_flatlist,
+    build_task_list(weekly_data_list, run_conf$forecast$max_horizon),
+    packages = c(tar_option_get("packages"), "mlr3forecast")
+  )
 )
