@@ -1,7 +1,7 @@
 library(autometric)
 library(crew)
 library(targets)
-library(toml)
+suppressPackageStartupMessages(library(tidyverse))
 
 # load envs (from docker compose file)
 ## crew workers for branch parallelisation
