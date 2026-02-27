@@ -35,6 +35,15 @@ dependencies = [
 ]
 
 [[packages]]
+name = "ISOweek"
+version = "0.6-2"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "stringr",
+]
+
+[[packages]]
 name = "KernSmooth"
 version = "2.23-26"
 source = { builtin = true }
