@@ -56,10 +56,20 @@ list(
     packages = c("toml")
   ),
   #
-  # Load incidence data
+  # Load input data
   tar_target(
     incidence_data,
-    read_incidence_data(toml_conf$data$paths$incidence)
+    load_incidence_data(run_conf$data$paths$incidence),
+    packages = c(tar_option_get("packages"), "ISOweek")
   ),
-  tar_target(weather_data, read_weather_data(toml_conf$data$paths$weather))
+  tar_target(
+    weather_data,
+    load_weather_data(run_conf$data$paths$weather),
+    packages = c(tar_option_get("packages"), "stars", "ISOweek")
+  ),
+  tar_target(
+    weekly_data_list,
+    build_weekly_data_list(incidence_data, weather_data)
+  )
+  #
 )
