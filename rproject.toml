@@ -3,8 +3,8 @@ name = "dart-forecasting"
 r_version = "4.5"
 
 repositories = [
-  { alias = "mlrorg", url = "https://mlr-org.r-universe.dev/" },
-  { alias = "CRAN", url = "https://packagemanager.posit.co/cran/latest" },
+  { alias = "P3M", url = "https://packagemanager.posit.co/cran/latest" },
+  { alias = "CRAN", url = "https://cloud.r-project.org" },
 ]
 
 dependencies = [
