@@ -58,11 +58,7 @@ list(
   #
   # Load run-time config
   tar_target(run_conf_fpath, .toml_fpath, format = "file"),
-  tar_target(
-    run_conf,
-    read_toml(run_conf_fpath),
-    packages = c("toml")
-  ),
+  tar_target(run_conf, read_toml(run_conf_fpath), packages = c("toml")),
   #
   # Load input data
   tar_target(
