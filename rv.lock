@@ -104,6 +104,15 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "RcppEigen"
+version = "0.3.4.0.2"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "Rcpp", requirement = "(>= 0.11.0)" },
+]
+
+[[packages]]
 name = "RcppParallel"
 version = "5.1.11-1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1049,6 +1058,20 @@ dependencies = [
 ]
 
 [[packages]]
+name = "mlr3learners"
+version = "0.14.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "mlr3", requirement = "(>= 1.2.0)" },
+    "checkmate",
+    "data.table",
+    { name = "mlr3misc", requirement = "(>= 0.9.4)" },
+    { name = "paradox", requirement = "(>= 1.0.0)" },
+    "R6",
+]
+
+[[packages]]
 name = "mlr3measures"
 version = "1.2.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1282,6 +1305,17 @@ force_source = false
 dependencies = [
     { name = "systemfonts", requirement = "(>= 1.0.3)" },
     { name = "textshaping", requirement = "(>= 0.3.0)" },
+]
+
+[[packages]]
+name = "ranger"
+version = "0.18.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "Rcpp", requirement = "(>= 0.11.2)" },
+    "Matrix",
+    "RcppEigen",
 ]
 
 [[packages]]
