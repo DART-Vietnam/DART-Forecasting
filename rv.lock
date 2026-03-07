@@ -14,7 +14,7 @@ dependencies = [
 
 [[packages]]
 name = "DBI"
-version = "1.2.3"
+version = "1.3.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -46,21 +46,24 @@ dependencies = [
 [[packages]]
 name = "KernSmooth"
 version = "2.23-26"
-source = { builtin = true }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "MASS"
 version = "7.3-65"
-source = { builtin = true }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "Matrix"
 version = "1.7-4"
-source = { builtin = true }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = [
     "lattice",
@@ -114,7 +117,7 @@ dependencies = [
 
 [[packages]]
 name = "RcppParallel"
-version = "5.1.11-1"
+version = "5.1.11-2"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -303,7 +306,8 @@ dependencies = [
 [[packages]]
 name = "class"
 version = "7.3-23"
-source = { builtin = true }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = [
     "MASS",
@@ -337,7 +341,8 @@ dependencies = []
 [[packages]]
 name = "codetools"
 version = "0.2-20"
-source = { builtin = true }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = []
 
@@ -551,7 +556,7 @@ dependencies = [
 
 [[packages]]
 name = "fs"
-version = "1.6.6"
+version = "1.6.7"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -742,7 +747,7 @@ dependencies = [
 
 [[packages]]
 name = "highr"
-version = "0.11"
+version = "0.12"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -895,7 +900,7 @@ dependencies = []
 
 [[packages]]
 name = "later"
-version = "1.4.7"
+version = "1.4.8"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -905,8 +910,9 @@ dependencies = [
 
 [[packages]]
 name = "lattice"
-version = "0.22-7"
-source = { builtin = true }
+version = "0.22-9"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+path = "4.5.3/Recommended"
 force_source = false
 dependencies = []
 
@@ -999,7 +1005,7 @@ dependencies = []
 
 [[packages]]
 name = "mirai"
-version = "2.6.0"
+version = "2.6.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1085,7 +1091,7 @@ dependencies = [
 [[packages]]
 name = "mlr3misc"
 version = "0.21.0"
-source = { repository = "https://mlr-org.r-universe.dev/", git = "https://github.com/mlr-org/mlr3misc", sha = "caefaacf1a54cb0799cf21e54788f8dd3d83f7fb" }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
     { name = "backports", requirement = "(>= 0.1.5)" },
@@ -1098,8 +1104,8 @@ dependencies = [
 
 [[packages]]
 name = "mlr3pipelines"
-version = "0.10.0"
-source = { repository = "https://mlr-org.r-universe.dev/", git = "https://github.com/mlr-org/mlr3pipelines", sha = "2bbce88d1057574ced44b99bf9467829a1f9bd96" }
+version = "0.11.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
     "backports",
@@ -1153,7 +1159,7 @@ dependencies = [
 
 [[packages]]
 name = "openssl"
-version = "2.3.4"
+version = "2.3.5"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1177,7 +1183,7 @@ dependencies = []
 [[packages]]
 name = "paradox"
 version = "1.0.1"
-source = { repository = "https://mlr-org.r-universe.dev/", git = "https://github.com/mlr-org/paradox", sha = "cdcc8e616afe243cd7c54e15713c86f818a52626" }
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
     "backports",
@@ -1299,7 +1305,7 @@ dependencies = [
 
 [[packages]]
 name = "ragg"
-version = "1.5.0"
+version = "1.5.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1650,7 +1656,7 @@ dependencies = []
 
 [[packages]]
 name = "systemfonts"
-version = "1.3.1"
+version = "1.3.2"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1686,7 +1692,7 @@ dependencies = [
 
 [[packages]]
 name = "textshaping"
-version = "1.0.4"
+version = "1.0.5"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
