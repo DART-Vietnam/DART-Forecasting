@@ -7,3 +7,4 @@ weather = [
 
 [forecast]
 max_horizon = 12
+learner_id = "regr.ranger"

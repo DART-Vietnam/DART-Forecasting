@@ -3,6 +3,14 @@ library(crew)
 library(targets)
 suppressPackageStartupMessages(library(tidyverse))
 
+# Load mlr3 stuff and ML learners here
+# so that qs2 deserialisaion can happen correctly
+# when loading mlr3 learners from qs2 files
+library(mlr3)
+library(mlr3pipelines)
+library(mlr3learners) #
+library(ranger)
+
 # load envs (from docker compose file)
 ## crew workers for branch parallelisation
 .env_crew_workers <- as.numeric(Sys.getenv("CREW_WORKERS"))
@@ -77,5 +85,20 @@ list(
     tsk_feateng_flatlist,
     build_task_list(weekly_data_list, run_conf$forecast$max_horizon),
     packages = c(tar_option_get("packages"), "mlr3forecast")
+  ),
+  #
+  # Load tuned learners
+  tar_target(
+    tuned_lrners_flatlist,
+    load_tuned_lrners_flatlist(run_conf$forecast$learner_id),
+    packages = c(tar_option_get("packages"), "qs2")
+  ),
+  #
+  # Train the tuned learners
+  tar_target(
+    trained_tuned_lrners,
+    train_lrners(tuned_lrners_flatlist, tsk_feateng_flatlist),
+    pattern = map(tuned_lrners_flatlist, tsk_feateng_flatlist),
+    iteration = "list"
   )
 )
