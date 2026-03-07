@@ -96,5 +96,9 @@ list(
     train_lrners(tuned_lrners_flatlist, tsk_feateng_flatlist),
     pattern = map(tuned_lrners_flatlist, tsk_feateng_flatlist),
     iteration = "list"
+  ),
+  tar_target(
+    trained_tuned_lrners_flatlist,
+    recomb_into_flatlist(trained_tuned_lrners, "trained_lrner")
   )
 )
