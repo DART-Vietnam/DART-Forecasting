@@ -1,13 +1,32 @@
-load_tuned_lrners_flatlist <- function(lrner_id) {
-  if (!(lrner_id %in% c("regr.ranger", "regr.xgboost"))) {
-    stop(paste0("`", lrner_id, "` not supported"))
+load_tuned_lrners_flatlist <- function(
+  folder_path,
+  configs = list(
+    region = "VNM",
+    admin_level = 1,
+    learner_id = "regr.ranger"
+  )
+) {
+  if (!(configs$learner_id %in% c("regr.ranger", "regr.xgboost"))) {
+    stop(paste0("`", configs$learner_id, "` not supported"))
   }
 
-  lrner_fpath <- list.files("data/mlr3_objs", full.names = TRUE) %>%
-    str_subset(lrner_id)
+  .files <- list.files("data/mlr3_objs", full.names = TRUE)
+  .pattern <- sprintf(
+    "%s-%d-%s-tuned_lrner_flatlist.qs2",
+    configs$region,
+    configs$admin_level,
+    configs$learner_id
+  )
+
+  lrner_fpath <- .files %>% str_subset(.pattern)
 
   if (is_empty(lrner_fpath)) {
-    stop(paste0("`", lrner_id, "` file not found"))
+    stop(paste0(
+      "`",
+      configs$learner_id,
+      "` file not found. Expecting: ",
+      .pattern
+    ))
   }
 
   qs_read(lrner_fpath)
