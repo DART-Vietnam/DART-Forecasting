@@ -62,8 +62,12 @@ list(
   #
   # Load input data
   tar_target(
+    raw_incidence_data,
+    read_csv(run_conf$data$paths$incidence)
+  ),
+  tar_target(
     incidence_data,
-    load_incidence_data(run_conf$data$paths$incidence),
+    prep_incidence_data(raw_incidence_data, run_conf$forecast$admin_level),
     packages = c(tar_option_get("packages"), "ISOweek")
   ),
   tar_target(
