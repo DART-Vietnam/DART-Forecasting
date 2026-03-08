@@ -100,5 +100,31 @@ list(
   tar_target(
     trained_tuned_lrners_flatlist,
     recomb_into_flatlist(trained_tuned_lrners, "trained_lrner")
+  ),
+  #
+  # Create `newdata` flat list
+  tar_target(
+    newdata_flatlist,
+    build_newdata_flatlist(tsk_feateng_flatlist)
+  ),
+  #
+  # Blind forecasting since last available data
+  tar_target(
+    blind_fcst_flatlist,
+    blind_fcst(trained_tuned_lrners_flatlist, newdata_flatlist),
+    pattern = map(trained_tuned_lrners_flatlist, newdata_flatlist),
+    iteration = "list"
+  ),
+  #
+  # Blind forecasting aggregator
+  tar_target(blind_fcst_orig_date, {
+    tsk_feateng_flatlist[[1]]$data() %>%
+      tail(1) %>%
+      pull(date_num) %>%
+      as.Date()
+  }),
+  tar_target(
+    blind_fcst_tbl,
+    aggregate_blind_fcsts(blind_fcst_flatlist, blind_fcst_orig_date)
   )
 )
