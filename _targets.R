@@ -68,7 +68,7 @@ list(
   ),
   tar_target(
     weather_data,
-    load_weather_data(run_conf$data$paths$weather),
+    load_weather_data(run_conf$data$paths$weather, run_conf$forecast),
     packages = c(tar_option_get("packages"), "stars", "ISOweek")
   ),
   tar_target(
