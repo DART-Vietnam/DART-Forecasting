@@ -1,12 +1,12 @@
 fcst_task_builder <- function(
-  tbl_list,
+  dtbl,
   horizon,
   select_vars = character(),
   lagging = TRUE,
   cumsum = TRUE,
   lag_vars = character(),
   cumsum_vars = character(),
-  join_idcol = "date",
+  join_idcol = c("date"),
   .padding = FALSE,
   .pad_till = FALSE
 ) {
@@ -19,91 +19,97 @@ fcst_task_builder <- function(
   if (length(horizon) != 1 || horizon < 1) {
     stop("`horizon` must a single positive number")
   }
+  if (.padding == TRUE && !is.Date(.pad_till)) {
+    stop("`.pad_till` needs to be a date string when `.padding` is TRUE")
+  }
+
+  # padding for blind forecasting
+  if (.padding == TRUE) {
+    dtbl <- dtbl %>%
+      map(\(tbl) {
+        start_date <- tbl %>% tail(1) %>% pull(date)
+
+        tbl %>%
+          bind_rows(
+            tibble(
+              date = seq.Date(start_date + 7, .pad_till, by = "7 days"),
+              n = -98765L
+            )
+          )
+      })
+  }
 
   info_msg(paste0("Generating lags for ", horizon, "-week-ahead"))
-  lag_tbl_list <- if (lagging == TRUE) {
-    tbl_list %>%
-      map(
-        \(tbl) {
-          calculate_lags(
-            df = tbl,
-            vars = lag_vars,
-            lags = seq(horizon, 12 + horizon - 1),
-            id_cols = join_idcol
-          )
-        },
-        .progress = TRUE
-      )
+  lag_dtbl <- if (lagging == TRUE) {
+    calculate_lags(
+      df = dtbl,
+      vars = lag_vars,
+      lags = seq(horizon, 12 + horizon - 1),
+      id_cols = join_idcol
+    )
   } else {
-    tbl_list
+    dtbl
   }
 
   info_msg(paste0("Generating cumumlative sums for ", horizon, "-week-ahead"))
-  cumsum_tbl_list <- if (cumsum == TRUE) {
-    tbl_list %>%
-      map(
-        \(tbl) {
-          calculate_cum_sums(
-            df = tbl,
-            vars = cumsum_vars,
-            start = horizon,
-            lengths = 2:12,
-            id_cols = join_idcol
-          )
-        },
-        .progress = TRUE
-      )
+  cumsum_dtbl <- if (cumsum == TRUE) {
+    calculate_cum_sums(
+      lagged_df = lag_dtbl,
+      vars = cumsum_vars,
+      start = horizon,
+      lengths = 2:12,
+      id_cols = join_idcol
+    )
   } else {
-    tbl_list
+    dtbl
   }
 
   select_vars <- unique(c(
     select_vars,
-    colnames(lag_tbl_list[[1]]),
-    colnames(cumsum_tbl_list[[1]])
+    colnames(lag_dtbl),
+    colnames(cumsum_dtbl)
   ))
 
-  joined_tbl_list <- pmap(
-    list(tbl_list, lag_tbl_list, cumsum_tbl_list),
-    \(tbl, lag_tbl, cumsum_tbl) {
-      tbl %>%
-        left_join(lag_tbl, by = join_idcol) %>%
-        left_join(cumsum_tbl, by = join_idcol) %>%
-        select(all_of(c(join_idcol, select_vars))) %>%
-        # drop the first (max lag amount) + (max cumsum window) rows
-        tail(-(12 + 12))
-    }
-  )
+  joined_dtbl <- dtbl %>%
+    left_join(lag_dtbl, by = join_idcol) %>%
+    left_join(cumsum_dtbl, by = join_idcol) %>%
+    # remove impossible incidence values, likely resulted from date padding
+    mutate(across(
+      c(starts_with("n"), -n),
+      ~ case_when(.x < 0 ~ NA, .default = .x)
+    )) %>%
+    select(all_of(c(join_idcol, select_vars))) %>%
+    # drop the first (max lag amount) + (max cumsum window) rows
+    tail(-(12 + 12))
 
-  gids <- names(joined_tbl_list)
+  # count the number of periods to determine GID level
+  gid_lvl <- switch(
+    str_count(joined_dtbl$region[[1]], "\\."),
+    "2" = 1,
+    "3" = 2,
+    "unknown"
+  )
+  iso3 <- str_extract(joined_dtbl$region[[1]], "\\w{3}")
 
   info_msg(paste0("Generating tasks for ", horizon, "-week-ahead"))
-  tsk_list <- map(
-    gids,
-    \(gid) {
-      joined_tbl_list[[gid]] %>%
-        mutate(
-          district = gid,
-          date_num = as.numeric(date)
-        ) %>%
-        as_task_fcst(
-          target = "n",
-          order = "date",
-          freq = "1 week",
-          id = sprintf("gid-%s_fh-%d_wa", gid, horizon)
-        )
-    },
-    .progress = TRUE
-  ) %>%
-    setNames(gids)
+  fcst_tsk <- joined_dtbl %>%
+    mutate(date_num = as.numeric(date)) %>%
+    as_task_fcst(
+      target = "n",
+      order = "date",
+      key = "region",
+      freq = "1 week",
+      id = sprintf("%s-%d_fh-%d_wa", iso3, gid_lvl, horizon)
+    )
 
-  tsk_list
+  fcst_tsk
 }
 
 build_task_list <- function(
-  gid_data_list,
+  weekly_data,
   max_horizon,
-  lag_cumsum_vars = c("n")
+  lag_cumsum_vars = c("n"),
+  join_idcol = c("date")
 ) {
   forecast_horizons <- seq(1, as.integer(max_horizon), by = 1)
 
@@ -111,11 +117,12 @@ build_task_list <- function(
     forecast_horizons,
     \(fh) {
       fcst_task_builder(
-        gid_data_list,
+        weekly_data,
         horizon = fh,
         select_vars = c("n"),
         lag_vars = lag_cumsum_vars,
-        cumsum_vars = lag_cumsum_vars
+        cumsum_vars = lag_cumsum_vars,
+        join_idcol = join_idcol
       )
     }
   ) %>%
