@@ -76,33 +76,47 @@ list(
     packages = c(tar_option_get("packages"), "stars", "ISOweek")
   ),
   tar_target(
-    weekly_data_list,
-    build_weekly_data_list(incidence_data, weather_data)
+    weekly_data,
+    build_weekly_data(incidence_data, weather_data)
   ),
   #
   # Build feature-engineered flatlist
   tar_target(
     tsk_feateng_flatlist,
-    build_task_list(weekly_data_list, run_conf$forecast$max_horizon),
-    packages = c(tar_option_get("packages"), "mlr3forecast")
+    build_task_list(
+      weekly_data = weekly_data,
+      max_horizon = run_conf$forecast$max_horizon,
+      join_idcol = c("date", "region")
+    ),
+    packages = c(tar_option_get("packages"), "mlr3", "mlr3forecast")
   ),
   #
   # Load tuned learners
   tar_target(
     tuned_lrners_flatlist,
-    load_tuned_lrners_flatlist(
-      run_conf$data$paths$mlr3_objs,
-      run_conf$forecast
-    ),
+    {
+      load_tuned_lrners_flatlist(
+        run_conf$data$paths$mlr3_objs,
+        run_conf$forecast
+      ) %>%
+        list_flatten()
+    },
     packages = c(tar_option_get("packages"), "qs2")
   ),
-  #
+
   # Train the tuned learners
   tar_target(
     trained_tuned_lrners,
     train_lrners(tuned_lrners_flatlist, tsk_feateng_flatlist),
     pattern = map(tuned_lrners_flatlist, tsk_feateng_flatlist),
-    iteration = "list"
+    iteration = "list",
+    packages = c(
+      tar_option_get("packages"),
+      "mlr3",
+      "mlr3pipelines",
+      "mlr3learners",
+      "ranger"
+    )
   ),
   tar_target(
     trained_tuned_lrners_flatlist,
@@ -124,12 +138,10 @@ list(
   ),
   #
   # Blind forecasting aggregator
-  tar_target(blind_fcst_orig_date, {
-    tsk_feateng_flatlist[[1]]$data() %>%
-      tail(1) %>%
-      pull(date_num) %>%
-      as.Date()
-  }),
+  tar_target(
+    blind_fcst_orig_date,
+    newdata_flatlist[[1]]$date_num %>% as.Date()
+  ),
   tar_target(
     blind_fcst_tbl,
     aggregate_blind_fcsts(blind_fcst_flatlist, blind_fcst_orig_date)
