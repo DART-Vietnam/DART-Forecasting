@@ -33,8 +33,6 @@ prep_incidence_data <- function(raw_dat, admin_level) {
     "gid2"
   }
 
-  browser()
-
   .norm_dat <- raw_dat %>%
     # drop city-level numbers, we can recalc them from lower levels
     select(-thanhpho) %>%
@@ -67,7 +65,8 @@ prep_incidence_data <- function(raw_dat, admin_level) {
     group_by(isoyear, isoweek, !!sym(spatial_unit)) %>%
     summarise(date = min(date), value = sum(value)) %>%
     ungroup() %>%
-    select({{ spatial_unit }}, date, value)
+    select({{ spatial_unit }}, date, value) %>%
+    rename(region = {{ spatial_unit }}, n = value)
 
   .norm_dat
 }
