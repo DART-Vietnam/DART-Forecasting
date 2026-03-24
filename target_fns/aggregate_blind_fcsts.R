@@ -7,6 +7,6 @@ aggregate_blind_fcsts <- function(blind_fcst_flatlist, blind_fcst_orig_date) {
 
   data.table(
     date = fcst_dates,
-    response = fcst_resps
+    response = unlist(fcst_resps)
   )
 }
