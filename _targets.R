@@ -103,7 +103,6 @@ list(
     },
     packages = c(tar_option_get("packages"), "qs2")
   ),
-
   # Train the tuned learners
   tar_target(
     trained_tuned_lrners,
