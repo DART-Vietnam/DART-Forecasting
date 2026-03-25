@@ -2,8 +2,12 @@
 
 library(targets)
 
-# Run targets pipeline
-tar_res <- tar_make(script = "./_targets.R")
+tar_config_set(script = "./_targets.R")
 
-## Debug with
-# tar_make(callr_function = NULL, use_crew = FALSE, as_job = FALSE)
+# Run targets pipeline
+tar_res <- tar_make(
+  ## Debug with
+  # callr_function = NULL,
+  # use_crew = FALSE,
+  # as_job = FALSE
+)
