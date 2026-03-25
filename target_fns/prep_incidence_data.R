@@ -63,7 +63,7 @@ prep_incidence_data <- function(raw_dat, admin_level) {
       date = ISOweek2date(datestr)
     ) %>%
     group_by(isoyear, isoweek, !!sym(spatial_unit)) %>%
-    summarise(date = min(date), value = sum(value)) %>%
+    summarise(date = min(date), value = sum(value, na.rm = TRUE)) %>%
     ungroup() %>%
     select({{ spatial_unit }}, date, value) %>%
     rename(region = {{ spatial_unit }}, n = value)
