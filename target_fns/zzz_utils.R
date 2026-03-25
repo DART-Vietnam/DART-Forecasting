@@ -66,9 +66,8 @@ calculate_cum_sums <- function(lagged_df, vars, start, lengths, id_cols) {
         filter(between(lag_amt, start_lag, end_lag)) %>%
         group_by(date, region) %>%
         select(-lag_amt) %>%
-        summarise(value = sum(value)) %>%
-        rename("{cur_var}_cumsum_{start_lag}_{end_lag}" := value) %>%
-        ungroup()
+        summarise(value = sum(value), .groups = "drop") %>%
+        rename("{cur_var}_cumsum_{start_lag}_{end_lag}" := value)
     }
   ) %>%
     reduce(left_join, by = id_cols)
