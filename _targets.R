@@ -151,7 +151,7 @@ list(
   #
   # Run tuned models on full train period
   tar_target(
-    full_train_preds_flatlist,
+    full_train_preds,
     full_train_resampling(
       train_tsk_flatlist,
       tuned_lrners_flatlist,
@@ -161,6 +161,10 @@ list(
     pattern = map(train_tsk_flatlist, tuned_lrners_flatlist, flatlist_ids),
     iteration = "list",
     packages = c(tar_option_get("packages"), "mlr3")
+  ),
+  tar_target(
+    full_train_preds_flatlist,
+    recomb_into_flatlist(full_train_preds, "full_train_preds")
   ),
   #
   # Create `newdata` flat list
