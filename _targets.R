@@ -8,7 +8,7 @@ suppressPackageStartupMessages(library(tidyverse))
 # when loading mlr3 learners from qs2 files
 library(mlr3)
 library(mlr3pipelines)
-library(mlr3learners) #
+library(mlr3learners)
 library(ranger)
 
 # load envs (from docker compose file)
@@ -58,7 +58,7 @@ list(
   #
   # Load run-time config
   tar_target(run_conf_fpath, .toml_fpath, format = "file"),
-  tar_target(run_conf, read_toml(run_conf_fpath), packages = c("toml")),
+  tar_target(run_conf, toml::read_toml(run_conf_fpath)),
   #
   # Load input data
   tar_target(
