@@ -30,4 +30,6 @@ dependencies = [
   { name = "mlr3forecast", git = "https://github.com/mlr-org/mlr3forecast", commit = "87236ae6142e1c589b39c2080502ef108f728ac7" },
   "mlr3learners",
   "ranger",
+  { name = "AdaptiveConformal", git = "https://github.com/herbps10/AdaptiveConformal.git", commit = "7c45149e676f37f3cbb759bcf92292d5bfe745c8" },
+  { name = "opera", git = "https://github.com/Dralliag/opera.git", commit = "24070db124c14df022c9356a3b517599ffd95148" },
 ]
