@@ -1,0 +1,10 @@
+services:
+  dart-forecasting:
+    container_name: dart-forecasting
+    image: ghcr.io/dart-vietnam/dart-forecasting:local-dev
+    environment:
+      TOML_CONF_FPATH: "/targets_config.toml"
+      CREW_WORKERS: 2
+    volumes:
+      - ./data:/dart-forecasting/data:ro
+      - ./targets_config.toml:/targets_config.toml:ro
