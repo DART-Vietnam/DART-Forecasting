@@ -54,7 +54,65 @@ list(
     ),
     packages = c(tar_option_get("packages"), "qs2")
   ),
-  # Train the tuned learners
+  #
+  # Get train-calib period split indices
+  tar_target(
+    train_calib_split_indices,
+    get_split_indices(tsk_feateng_flatlist[[1]], percentage = 0.75)
+  ),
+  tar_target(
+    flatlist_ids,
+    names(tuned_lrners_flatlist), # can be any flatlist object really
+  ),
+  # Perform Conformal Prediction -----------------------------------------------
+  #
+  ## Run tuned models on full train period -------------------------------------
+  tar_target(
+    full_train_preds,
+    full_train_resampling(
+      tsk_feateng_flatlist,
+      tuned_lrners_flatlist,
+      train_calib_split_indices,
+      flatlist_ids
+    ),
+    pattern = map(tsk_feateng_flatlist, tuned_lrners_flatlist, flatlist_ids),
+    iteration = "list",
+    packages = c(tar_option_get("packages"), "mlr3")
+  ),
+  tar_target(
+    full_train_preds_flatlist,
+    recomb_into_flatlist(full_train_preds, "full_train_preds")
+  ),
+  #
+  ## Calculate ACI conformity score set from proper train predictions ----------
+  tar_target(p_ints, c(0.5, 0.75, 0.9, 0.95, 0.99)),
+  tar_target(
+    agaci_obj_list,
+    build_agaci_obj(
+      full_train_preds_flatlist,
+      train_calib_split_indices,
+      p_ints
+    ),
+    pattern = map(full_train_preds_flatlist),
+    iteration = "list",
+    packages = c(tar_option_get("packages"), "AdaptiveConformal")
+  ),
+  #
+  ## Online updating/Calibrating AgACI from calibration predictions ------------
+  tar_target(
+    calibrated_agaci_obj_list,
+    calibrate_agaci_obj(
+      agaci_obj_list,
+      full_train_preds_flatlist,
+      train_calib_split_indices
+    ),
+    pattern = map(agaci_obj_list, full_train_preds_flatlist),
+    iteration = "list",
+    packages = c(tar_option_get("packages"), "opera")
+  ),
+  # Blind forecasting ----------------------------------------------------------
+  #
+  ## Train the tuned learners --------------------------------------------------
   tar_target(
     trained_tuned_lrners,
     train_lrners(tuned_lrners_flatlist, tsk_feateng_flatlist),

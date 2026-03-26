@@ -5,6 +5,7 @@ full_train_resampling <- function(
   id
 ) {
   tuned_lrner <- tuned_lrner[[1]]
+  train_tsk <- train_tsk[[1]]
   .lrner_id <- tuned_lrner$base_learner()$id
 
   min_obs <- if (.lrner_id == "regr.ranger") {
