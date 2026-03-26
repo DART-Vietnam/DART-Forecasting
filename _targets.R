@@ -130,53 +130,6 @@ list(
     trained_tuned_lrners_flatlist,
     recomb_into_flatlist(trained_tuned_lrners, "trained_lrner")
   ),
-  #
-  # Get train-calib period split indices
-  tar_target(
-    train_calib_split_indices,
-    get_split_indices(tsk_feateng_flatlist[[1]], percentage = 0.8)
-  ),
-  #
-  # Train-calib period splitting
-  tar_target(
-    splitted_tsk_flatlist,
-    split_task_list(tsk_feateng_flatlist, train_calib_split_indices)
-  ),
-  tar_target(
-    train_tsk_flatlist,
-    splitted_tsk_flatlist$train_tsk_list,
-    iteration = "list"
-  ),
-  tar_target(
-    calib_tsk_flatlist,
-    splitted_tsk_flatlist$test_tsk_list,
-    iteration = "list"
-  ),
-  tar_target(
-    flatlist_ids,
-    names(train_tsk_flatlist), # can be any flatlist object really
-  ),
-  ################ Perform Conformal Prediction
-  #
-  # Run tuned models on full train period
-  tar_target(
-    full_train_preds,
-    full_train_resampling(
-      train_tsk_flatlist,
-      tuned_lrners_flatlist,
-      train_calib_split_indices,
-      flatlist_ids
-    ),
-    pattern = map(train_tsk_flatlist, tuned_lrners_flatlist, flatlist_ids),
-    iteration = "list",
-    packages = c(tar_option_get("packages"), "mlr3")
-  ),
-  tar_target(
-    full_train_preds_flatlist,
-    recomb_into_flatlist(full_train_preds, "full_train_preds")
-  ),
-  #
-  # Create `newdata` flat list
   tar_target(
     newdata_flatlist,
     build_newdata_flatlist(tsk_feateng_flatlist)
