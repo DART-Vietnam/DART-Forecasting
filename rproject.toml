@@ -27,7 +27,7 @@ dependencies = [
   "stars",
   "ncmeta",
   "ISOweek",
-  { name = "mlr3forecast", git = "https://github.com/mlr-org/mlr3forecast", commit = "87236ae6142e1c589b39c2080502ef108f728ac7" },
+  { name = "mlr3forecast", git = "https://github.com/mlr-org/mlr3forecast.git", commit = "0b6cef9525e9fc0cb0430e52eb95e413edc70fee" },
   "mlr3learners",
   "ranger",
   { name = "AdaptiveConformal", git = "https://github.com/herbps10/AdaptiveConformal.git", commit = "7c45149e676f37f3cbb759bcf92292d5bfe745c8" },
