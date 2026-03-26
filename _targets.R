@@ -20,7 +20,13 @@ list(
   ),
   tar_target(
     weather_data,
-    load_weather_data(run_conf$data$paths$weather, run_conf$forecast),
+    {
+      if (run_conf$forecast$met_dat_included) {
+        load_weather_data(run_conf$data$paths$weather, run_conf$forecast)
+      } else {
+        NULL
+      }
+    },
     packages = c(tar_option_get("packages"), "stars", "ISOweek")
   ),
   tar_target(
