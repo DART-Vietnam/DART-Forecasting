@@ -134,12 +134,24 @@ list(
     newdata_flatlist,
     build_newdata_flatlist(tsk_feateng_flatlist)
   ),
+  tar_target(
+    calibrated_agaci_obj_flatlist,
+    recomb_into_flatlist(calibrated_agaci_obj_list, "updated_agaci_obj")
+  ),
   #
   # Blind forecasting since last available data
   tar_target(
-    blind_fcst_flatlist,
-    blind_fcst(trained_tuned_lrners_flatlist, newdata_flatlist),
-    pattern = map(trained_tuned_lrners_flatlist, newdata_flatlist),
+    blind_fcst_w_agaci_flatlist,
+    blind_fcst_w_agaci(
+      trained_tuned_lrners_flatlist,
+      newdata_flatlist,
+      calibrated_agaci_obj_flatlist
+    ),
+    pattern = map(
+      trained_tuned_lrners_flatlist,
+      newdata_flatlist,
+      calibrated_agaci_obj_flatlist
+    ),
     iteration = "list"
   ),
   #
