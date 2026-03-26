@@ -93,7 +93,7 @@ fcst_task_builder <- function(
 
   info_msg(paste0("Generating tasks for ", horizon, "-week-ahead"))
   fcst_tsk <- joined_dtbl %>%
-    mutate(date_num = as.numeric(date)) %>%
+    mutate(date_num = as.numeric(date), region = as.factor(region)) %>%
     as_task_fcst(
       target = "n",
       order = "date",
