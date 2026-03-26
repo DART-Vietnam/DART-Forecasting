@@ -155,11 +155,7 @@ list(
     iteration = "list"
   ),
   #
-  # Blind forecasting aggregator
-  tar_target(
-    blind_fcst_orig_date,
-    newdata_flatlist[[1]]$date_num %>% as.Date()
-  ),
+  ## Blind forecasting aggregator ----------------------------------------------
   tar_target(
     blind_fcst_tbl,
     aggregate_blind_fcsts(blind_fcst_w_agaci_flatlist)
