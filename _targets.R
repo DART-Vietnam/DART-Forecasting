@@ -4,11 +4,11 @@ source("targets_setup.R")
 # Here, it's just the pipeline
 list(
   #
-  # Load run-time config
+  # Load run-time config -------------------------------------------------------
   tar_target(run_conf_fpath, .toml_fpath, format = "file"),
   tar_target(run_conf, toml::read_toml(run_conf_fpath)),
   #
-  # Load input data
+  # Load input data ------------------------------------------------------------
   tar_target(
     raw_incidence_data,
     read_csv(run_conf$data$paths$incidence)
@@ -34,7 +34,7 @@ list(
     build_weekly_data(incidence_data, weather_data)
   ),
   #
-  # Build feature-engineered flatlist
+  # Build feature-engineered flatlist ------------------------------------------
   tar_target(
     tsk_feateng_flatlist,
     build_task_list(
@@ -45,7 +45,7 @@ list(
     packages = c(tar_option_get("packages"), "mlr3", "mlr3forecast")
   ),
   #
-  # Load tuned learners
+  # Load tuned learners --------------------------------------------------------
   tar_target(
     tuned_lrners_flatlist,
     load_tuned_lrners_flatlist(
@@ -126,6 +126,8 @@ list(
       "ranger"
     )
   ),
+  #
+  ## Create `newdata` flat list ------------------------------------------------
   tar_target(
     trained_tuned_lrners_flatlist,
     recomb_into_flatlist(trained_tuned_lrners, "trained_lrner")
@@ -139,7 +141,7 @@ list(
     recomb_into_flatlist(calibrated_agaci_obj_list, "updated_agaci_obj")
   ),
   #
-  # Blind forecasting since last available data
+  ## Blind forecasting since last available data -------------------------------
   tar_target(
     blind_fcst_w_agaci_flatlist,
     blind_fcst_w_agaci(
