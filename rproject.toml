@@ -32,4 +32,5 @@ dependencies = [
   "ranger",
   { name = "AdaptiveConformal", git = "https://github.com/herbps10/AdaptiveConformal.git", commit = "7c45149e676f37f3cbb759bcf92292d5bfe745c8" },
   { name = "opera", git = "https://github.com/Dralliag/opera.git", commit = "24070db124c14df022c9356a3b517599ffd95148" },
+  "mlr3",
 ]

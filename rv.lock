@@ -58,24 +58,21 @@ dependencies = [
 [[packages]]
 name = "KernSmooth"
 version = "2.23-26"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+source = { builtin = true }
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "MASS"
 version = "7.3-65"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+source = { builtin = true }
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "Matrix"
 version = "1.7-4"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+source = { builtin = true }
 force_source = false
 dependencies = [
     "lattice",
@@ -336,8 +333,7 @@ dependencies = [
 [[packages]]
 name = "class"
 version = "7.3-23"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+source = { builtin = true }
 force_source = false
 dependencies = [
     "MASS",
@@ -371,14 +367,13 @@ dependencies = []
 [[packages]]
 name = "codetools"
 version = "0.2-20"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+source = { builtin = true }
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "collections"
-version = "0.3.11"
+version = "0.3.12"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -586,14 +581,14 @@ dependencies = [
 
 [[packages]]
 name = "fs"
-version = "1.6.7"
+version = "2.0.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "future"
-version = "1.69.0"
+version = "1.70.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -657,7 +652,7 @@ dependencies = [
 
 [[packages]]
 name = "globals"
-version = "0.19.0"
+version = "0.19.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -824,7 +819,7 @@ dependencies = [
 
 [[packages]]
 name = "httpuv"
-version = "1.6.16"
+version = "1.6.17"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -940,9 +935,8 @@ dependencies = [
 
 [[packages]]
 name = "lattice"
-version = "0.22-9"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-path = "4.5.3/Recommended"
+version = "0.22-7"
+source = { builtin = true }
 force_source = false
 dependencies = []
 
@@ -974,7 +968,7 @@ dependencies = [
 
 [[packages]]
 name = "listenv"
-version = "0.10.0"
+version = "0.10.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -1051,9 +1045,9 @@ dependencies = []
 
 [[packages]]
 name = "mlr3"
-version = "1.4.0.9000"
-source = { git = "https://github.com/mlr-org/mlr3", sha = "0b0dbc491af3628de19f17eb0f52135530d9514b" }
-force_source = true
+version = "1.5.0"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
 dependencies = [
     { name = "R6", requirement = "(>= 2.4.1)" },
     { name = "backports", requirement = "(>= 1.5.0)" },
@@ -1067,7 +1061,7 @@ dependencies = [
     { name = "mirai", requirement = "(>= 2.4.1)" },
     "mlbench",
     { name = "mlr3measures", requirement = "(>= 1.2.0)" },
-    { name = "mlr3misc", requirement = "(>= 0.19.0)" },
+    { name = "mlr3misc", requirement = "(>= 0.21.0)" },
     "parallelly",
     "palmerpenguins",
     { name = "paradox", requirement = "(>= 1.0.1)" },
@@ -1168,7 +1162,7 @@ dependencies = [
 
 [[packages]]
 name = "nanonext"
-version = "1.8.0"
+version = "1.8.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
@@ -1378,7 +1372,7 @@ dependencies = [
 
 [[packages]]
 name = "ragg"
-version = "1.5.1"
+version = "1.5.2"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1651,7 +1645,7 @@ dependencies = [
 
 [[packages]]
 name = "shinyWidgets"
-version = "0.9.0"
+version = "0.9.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1920,7 +1914,7 @@ dependencies = [
 
 [[packages]]
 name = "units"
-version = "1.0-0"
+version = "1.0-1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1943,7 +1937,7 @@ dependencies = []
 
 [[packages]]
 name = "vctrs"
-version = "0.7.1"
+version = "0.7.2"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -2017,7 +2011,7 @@ dependencies = []
 
 [[packages]]
 name = "xfun"
-version = "0.56"
+version = "0.57"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
