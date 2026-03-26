@@ -27,4 +27,4 @@ RUN apt update && \
 # sync `rv`
 RUN rv sync
 
-ENTRYPOINT [ "Rscript", "target_runner.R" ]
+ENTRYPOINT [ "Rscript", "targets_runner.R" ]
