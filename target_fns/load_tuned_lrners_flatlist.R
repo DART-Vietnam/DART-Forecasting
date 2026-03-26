@@ -3,6 +3,7 @@ load_tuned_lrners_flatlist <- function(
   configs = list(
     region = "VNM",
     admin_level = 1,
+    max_horizon = 12,
     learner_id = "regr.ranger",
     met_dat_included = TRUE
   )
@@ -32,5 +33,7 @@ load_tuned_lrners_flatlist <- function(
     ))
   }
 
-  qs_read(lrner_fpath)
+  qs_read(lrner_fpath) %>%
+    list_flatten() %>%
+    `[`(seq(1:configs$max_horizon))
 }

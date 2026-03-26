@@ -48,13 +48,10 @@ list(
   # Load tuned learners
   tar_target(
     tuned_lrners_flatlist,
-    {
-      load_tuned_lrners_flatlist(
-        run_conf$data$paths$mlr3_objs,
-        run_conf$forecast
-      ) %>%
-        list_flatten()
-    },
+    load_tuned_lrners_flatlist(
+      run_conf$data$paths$mlr3_objs,
+      run_conf$forecast
+    ),
     packages = c(tar_option_get("packages"), "qs2")
   ),
   # Train the tuned learners
