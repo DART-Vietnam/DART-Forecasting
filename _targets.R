@@ -162,6 +162,6 @@ list(
   ),
   tar_target(
     blind_fcst_tbl,
-    aggregate_blind_fcsts(blind_fcst_flatlist, blind_fcst_orig_date)
+    aggregate_blind_fcsts(blind_fcst_w_agaci_flatlist)
   )
 )
