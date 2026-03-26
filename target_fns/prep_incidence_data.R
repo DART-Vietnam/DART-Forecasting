@@ -1,4 +1,4 @@
-.gid2_namemap <- tribble(
+.gid_namemap <- tribble(
   ~csv_cname , ~gid          ,
   "bc"       , "VNM.25.1_1"  ,
   "bta"      , "VNM.25.2_1"  ,
@@ -24,18 +24,11 @@
   "tb"       , "VNM.25.22_1" ,
   "tp"       , "VNM.25.23_1" ,
   "td"       , "VNM.25.24_1" ,
+  "thanhpho" , "VNM.25_1"    ,
 )
 
 prep_incidence_data <- function(raw_dat, admin_level) {
-  spatial_unit <- if (admin_level == "1") {
-    "gid1"
-  } else if (admin_level == "2") {
-    "gid2"
-  }
-
   .norm_dat <- raw_dat %>%
-    # drop city-level numbers, we can recalc them from lower levels
-    select(-thanhpho) %>%
     # normalise colnames to english
     rename(isoyear = nam, isoweek = tuan) %>%
     # roll w53 into w1 into next year (HCDC req)
@@ -49,12 +42,12 @@ prep_incidence_data <- function(raw_dat, admin_level) {
     pivot_longer(cols = -c(isoyear, isoweek)) %>%
     # add GID1 and GID2 values
     mutate(
-      gid1 = "VNM.25_1",
-      gid2 = recode_values(
+      gid = recode_values(
         name,
-        from = .gid2_namemap$csv_cname,
-        to = .gid2_namemap$gid
-      )
+        from = .gid_namemap$csv_cname,
+        to = .gid_namemap$gid
+      ),
+      gidlvl = as.character(str_count(gid, "\\."))
     ) %>%
     select(-name) %>%
     # get date from isoyear and isoweek
@@ -62,11 +55,16 @@ prep_incidence_data <- function(raw_dat, admin_level) {
       datestr = sprintf("%d-W%02d-1", isoyear, isoweek),
       date = ISOweek2date(datestr)
     ) %>%
-    group_by(isoyear, isoweek, !!sym(spatial_unit)) %>%
-    summarise(date = min(date), value = sum(value, na.rm = TRUE)) %>%
-    ungroup() %>%
-    select({{ spatial_unit }}, date, value) %>%
-    rename(region = {{ spatial_unit }}, n = value)
+    group_by(isoyear, isoweek, gid) %>%
+    summarise(
+      date = min(date),
+      value = sum(value),
+      gidlvl = unique(gidlvl),
+      .groups = "drop"
+    ) %>%
+    filter(gidlvl == admin_level) %>%
+    select(gid, date, value) %>%
+    rename(region = gid, n = value)
 
   .norm_dat
 }
