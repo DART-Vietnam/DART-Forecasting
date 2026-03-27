@@ -79,6 +79,13 @@ dependencies = [
 ]
 
 [[packages]]
+name = "Metrics"
+version = "0.1.4"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "PRROC"
 version = "1.4"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -114,6 +121,15 @@ version = "1.1.1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
+
+[[packages]]
+name = "RcppArmadillo"
+version = "15.2.4-1"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "Rcpp", requirement = "(>= 1.0.12)" },
+]
 
 [[packages]]
 name = "RcppEigen"
@@ -1071,20 +1087,20 @@ dependencies = [
 [[packages]]
 name = "mlr3forecast"
 version = "0.0.1"
-source = { git = "https://github.com/mlr-org/mlr3forecast", sha = "87236ae6142e1c589b39c2080502ef108f728ac7" }
+source = { git = "https://github.com/mlr-org/mlr3forecast.git", sha = "0b6cef9525e9fc0cb0430e52eb95e413edc70fee" }
 force_source = true
 dependencies = [
-    { name = "mlr3", requirement = "(>= 1.3.0.9000)" },
-    "backports",
-    { name = "checkmate", requirement = "(>= 2.3.3)" },
+    { name = "mlr3", requirement = "(>= 1.5.0)" },
+    { name = "backports", requirement = "(>= 1.5.0)" },
+    { name = "checkmate", requirement = "(>= 2.0.0)" },
     "cli",
     { name = "data.table", requirement = "(>= 1.18.0)" },
     "ggplot2",
     "lgr",
-    { name = "mlr3misc", requirement = "(>= 0.19.0)" },
+    { name = "mlr3misc", requirement = "(>= 0.21.0)" },
     { name = "mlr3pipelines", requirement = "(>= 0.10.0)" },
     { name = "paradox", requirement = "(>= 1.0.1)" },
-    { name = "R6", requirement = "(>= 2.6.0)" },
+    { name = "R6", requirement = "(>= 2.4.1)" },
 ]
 
 [[packages]]
@@ -1582,6 +1598,33 @@ dependencies = [
     "RColorBrewer",
     { name = "rlang", requirement = "(>= 1.1.0)" },
     "viridisLite",
+]
+
+[[packages]]
+name = "scoringRules"
+version = "1.1.3"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "Rcpp", requirement = "(>= 0.12.0)" },
+    "MASS",
+    "knitr",
+    "RcppArmadillo",
+]
+
+[[packages]]
+name = "scoringutils"
+version = "2.1.2"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "checkmate",
+    "cli",
+    { name = "data.table", requirement = "(>= 1.16.0)" },
+    { name = "ggplot2", requirement = "(>= 3.4.0)" },
+    "Metrics",
+    "purrr",
+    { name = "scoringRules", requirement = "(>= 1.1.3)" },
 ]
 
 [[packages]]
