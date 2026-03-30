@@ -59,9 +59,9 @@ build_weekly_data <- function(
       left_date_lim,
       right_date_lim
     ) %||%
-      inc_dat %>%
-      head(0) %>%
-      select(-n)
+      (inc_dat %>%
+        head(0) %>%
+        select(-any_of("n")))
   }
 
   full_dat <- full_join(filtered_inc_dat, filtered_met_dat, by = .join_cols)
