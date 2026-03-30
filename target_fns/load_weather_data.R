@@ -67,7 +67,7 @@ read_wrf_ds_data <- function(fpath) {
     as_tibble() %>%
     mutate(
       region = as.character(region),
-      date = as.Date(date),
+      date = as.Date(time),
       tp_ds = tp_ds / 1000
     ) %>%
     filter(startsWith(as.character(region), "VNM.25")) %>%
