@@ -76,22 +76,43 @@ read_wrf_ds_data <- function(fpath) {
 
 load_weather_data <- function(
   fpaths,
-  configs = list(region = "VNM", admin_level = 1)
+  configs = list(
+    region = "VNM",
+    admin_level = 1,
+    met_data = list(
+      load_era = TRUE,
+      load_wrf_ds = TRUE,
+    )
+  )
 ) {
   .files <- list.files(fpaths, full.names = TRUE)
   .metrics <- c("era5", "wrf_downscale.precip")
   .patterns <- sprintf(
-    "%s-%d-.+%s.nc",
+    "%s-%d-.+%s(.weekly)?.nc",
     configs$region,
     configs$admin_level,
     .metrics
   )
 
   .era5_fpath <- .files[[grep(.patterns[1], .files)]]
-  .era5_weather_dat <- read_era5_data(.era5_fpath)
+  .era5_weather_dat <- if (configs$met_data$load_era) {
+    read_era5_data(.era5_fpath)
+  } else {
+    NULL
+  }
 
   .wrf_ds_fpath <- .files[[grep(.patterns[2], .files)]]
-  .ds_weather_dat <- read_wrf_ds_data(.wrf_ds_fpath)
+  .ds_weather_dat <- if (configs$met_data$load_wrf_ds) {
+    read_wrf_ds_data(.wrf_ds_fpath)
+  } else {
+    NULL
+  }
 
-  full_join(.era5_weather_dat, .ds_weather_dat)
+  template_tbl <- tibble(region = character(), date = as.Date(0))
+
+  full_join(
+    .era5_weather_dat %||% template_tbl,
+    .ds_weather_dat %||% template_tbl,
+    by = join_by(region, date)
+  )
 }

@@ -5,13 +5,15 @@ load_tuned_lrners_flatlist <- function(
     admin_level = 1,
     max_horizon = 12,
     learner_id = "regr.ranger",
-    met_dat_included = TRUE
+    met_data = list(
+      load_met_data = TRUE
+    )
   )
 ) {
   if (!(configs$learner_id %in% c("regr.ranger", "regr.xgboost"))) {
     stop(paste0("`", configs$learner_id, "` not supported"))
   }
-  .vars <- if (configs$met_dat_included) "allVars" else "incVars"
+  .vars <- if (configs$met_data$load_met_data) "allVars" else "incVars"
 
   .files <- list.files("data/mlr3_objs", full.names = TRUE)
   .pattern <- sprintf(

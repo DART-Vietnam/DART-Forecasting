@@ -21,8 +21,11 @@ list(
   tar_target(
     weather_data,
     {
-      if (run_conf$forecast$met_dat_included) {
-        load_weather_data(run_conf$data$paths$weather, run_conf$forecast)
+      if (run_conf$forecast$met_data$load_met_data) {
+        load_weather_data(
+          run_conf$data$paths$weather,
+          run_conf$forecast
+        )
       } else {
         NULL
       }
