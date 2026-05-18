@@ -15,7 +15,7 @@ load_tuned_lrners_flatlist <- function(
   }
   .vars <- if (configs$met_data$load_met_data) "allVars" else "incVars"
 
-  .files <- list.files("data/mlr3_objs", full.names = TRUE)
+  .files <- list.files(folder_path, full.names = TRUE)
   .pattern <- sprintf(
     "%s-%d-%s-%s-tuned_lrner_flatlist.qs2",
     configs$region,
