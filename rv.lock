@@ -79,13 +79,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "Metrics"
-version = "0.1.4"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
 name = "PRROC"
 version = "1.4"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -124,11 +117,11 @@ dependencies = []
 
 [[packages]]
 name = "RcppArmadillo"
-version = "15.2.4-1"
+version = "15.2.6-1"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
-    { name = "Rcpp", requirement = "(>= 1.0.12)" },
+    { name = "Rcpp", requirement = "(>= 1.1.1)" },
 ]
 
 [[packages]]
@@ -1614,7 +1607,7 @@ dependencies = [
 
 [[packages]]
 name = "scoringutils"
-version = "2.1.2"
+version = "2.2.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
@@ -1622,7 +1615,6 @@ dependencies = [
     "cli",
     { name = "data.table", requirement = "(>= 1.16.0)" },
     { name = "ggplot2", requirement = "(>= 3.4.0)" },
-    "Metrics",
     "purrr",
     { name = "scoringRules", requirement = "(>= 1.1.3)" },
 ]
