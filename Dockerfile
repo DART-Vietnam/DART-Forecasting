@@ -1,8 +1,8 @@
 FROM rocker/r-ver:4.5.2
 
 # setup for `rv` and R packages
-RUN apt update && \
-    apt install -y --no-install-recommends \ 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \ 
     curl ca-certificates git && \
     rm -rf /var/lib/apt/lists/*
 
@@ -19,7 +19,7 @@ COPY rv /dart-forecasting/rv
 COPY rproject.toml rv.lock .Rprofile /dart-forecasting/
 
 # install sysdeps for R packages
-RUN apt update 
+RUN apt-get update 
 RUN pkgs="$(rv sysdeps)" && \
     if [ -n "$pkgs" ]; then \
     apt-get install -y --no-install-recommends $pkgs; \
