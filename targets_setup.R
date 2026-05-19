@@ -1,6 +1,7 @@
 library(autometric)
 library(crew)
 library(targets)
+library(cli)
 suppressPackageStartupMessages(library(tidyverse))
 
 # Load mlr3 stuff and ML learners here
@@ -13,7 +14,7 @@ library(ranger)
 
 # load envs (from docker compose file)
 ## crew workers for branch parallelisation
-.env_crew_workers <- as.numeric(Sys.getenv("CREW_WORKERS"))
+.env_crew_workers <- as.integer(Sys.getenv("CREW_WORKERS"))
 .crew_workers <- if (is.na(.env_crew_workers)) {
   4L
 } else {
@@ -23,7 +24,7 @@ library(ranger)
 ## load TOML container run-time configs
 .toml_fpath <- Sys.getenv("TOML_CONF_FPATH")
 if (.toml_fpath == "") {
-  stop("`TOML_CONF_FPATH` env var must be supplied")
+  cli_abort("`TOML_CONF_FPATH` env var must be supplied")
 }
 
 log_dir <- "_targets/logs/"
@@ -58,4 +59,17 @@ if (tar_active()) {
     path = paste0(log_dir, "main_process.txt"),
     seconds = 1
   )
+}
+
+# some checks
+toml_conf <- toml::read_toml(.toml_fpath)
+if (.crew_workers != toml_conf$forecast$max_horizon) {
+  cli_warn(paste0(
+    "There are ",
+    .crew_workers,
+    " parallel `targets` workers, while the max_horizon is ",
+    toml_conf$forecast$max_horizon,
+    "\n",
+    "For optimal parallelisation performance, consider these two values to be the same, i.e. 1 horizon per parallel worker"
+  ))
 }
