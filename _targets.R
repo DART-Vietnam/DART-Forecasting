@@ -43,6 +43,8 @@ list(
     build_task_list(
       weekly_data = weekly_data,
       max_horizon = run_conf$forecast$max_horizon,
+      lag_cumsum_vars = c("n", setdiff(colnames(weather_data), c("region","isoyear","isoweek","date"))),
+      select_vars = c("n"),
       join_idcol = c("date", "region")
     ),
     packages = c(tar_option_get("packages"), "mlr3", "mlr3forecast")

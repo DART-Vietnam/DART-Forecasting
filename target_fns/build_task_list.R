@@ -109,6 +109,7 @@ build_task_list <- function(
   weekly_data,
   max_horizon,
   lag_cumsum_vars = c("n"),
+  select_vars = c("n"),
   join_idcol = c("date")
 ) {
   forecast_horizons <- seq(1, as.integer(max_horizon), by = 1)
@@ -119,7 +120,7 @@ build_task_list <- function(
       fcst_task_builder(
         weekly_data,
         horizon = fh,
-        select_vars = c("n"),
+        select_vars = select_vars,
         lag_vars = lag_cumsum_vars,
         cumsum_vars = lag_cumsum_vars,
         join_idcol = join_idcol
