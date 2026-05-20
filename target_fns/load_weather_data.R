@@ -113,6 +113,6 @@ load_weather_data <- function(
   full_join(
     .era5_weather_dat %||% template_tbl,
     .ds_weather_dat %||% template_tbl,
-    by = join_by(region, date)
+    by = join_by(region, date, isoweek, isoyear)
   )
 }
